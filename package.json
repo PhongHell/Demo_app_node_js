@@ -16,6 +16,8 @@
     "express-handlebars": "^3.0.2",
     "express-session": "^1.17.2",
     "express-validator": "^6.13.0",
+    "lite-server": "^2.6.1",
+    "moment": "^2.29.3",
     "moment-business-days": "^1.2.0",
     "momentjs": "^2.0.0",
     "mongodb": "^4.2.0",
@@ -30,7 +32,6 @@
     "pug": "^3.0.2",
     "sequelize": "^6.9.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"

@@ -1,0 +1,97 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+   <div class="d-flex jus-between">
+        <div class="p-2">
+            <a href="/user/signup">
+                <button type="button" class="btn btn-primary">
+                    Add User
+                </button>
+            </a>
+        </div>
+        <div class="form-search p-2 ">
+              <form action="/admin/management" method="POST" class="d-flex">
+                    <div>
+                        <input type="text" placeholder="Username or email" class="p-1" name="searchName" value="<%= search %>">
+                    </div>
+                    <div class="pl-2">
+                        <button class="btn btn-primary">Tìm kiếm</button>
+                    </div>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              </form>
+        </div> 
+   </div>
+   <% if(listUser.length !== 0){ %> 
+          <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Id</th>
+            <th scope="col">Username</th>
+            <th scope="col">Account</th>
+            <th scope="col">On start</th>
+            <th>Picker</th align-center>
+        </tr>
+        </thead>
+        <tbody>
+        <% listUser.map((user, index) => { %>
+            <tr>
+                <td> <%= index + 1 %></td>
+                <td>
+                   <div class="d-flex ">
+                        <form action="/user/delete/<% user._id %>" method="GET" class="mr-1">
+                            <input type="hidden" name="_csrf"  value="<%= csrfToken %>">
+                            <button type="submit" class="btn btn-danger btn-size">
+                                Delete
+                            </button>
+                        </form>
+                        <div>
+                            <a href="/user/edit/<%= user._id %>" class="style-link">
+                                <button type="button" class="btn btn-success btn-size">
+                                    Edit
+                                </button>
+                            </a>
+                        </div>
+                   </div>
+                </td>
+                <td>
+                    <%= user._id %>
+                </td>
+                <td >
+                    <div class="cursor-pointer">
+                        <div class="bold_character">
+                            <a href="/user/<%= user._id %>" class="style-link"><%= user.name %></a>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <%= user.email %>
+                </td>
+                <td>
+                    <%= user.onStart %>
+                </td>
+                <td>
+                    <div>
+                        <input type="checkbox"
+                        name="<%= user.id %>" 
+                        id="<%= user.id %>"
+                        class="cursor-pointer"
+                        
+                        >
+                    </div>
+                </td>
+            </tr>
+            <% }) %> 
+        </tbody>
+    </table>
+    <% } else { %>
+        <div class="align-center">
+            <h2>Không tìm thấy người dùng nào</h2>
+        </div>
+    <% } %>
+   <%- include('../includes/end.ejs') %>

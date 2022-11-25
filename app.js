@@ -13,8 +13,8 @@ const flash = require('connect-flash');
 
 const path = require("path");
 
-// staff model
-const Staff = require("./models/staff");
+const User = require("./models/user")
+
 
 // Controllers
 const errorsController = require("./controllers/errors");
@@ -37,8 +37,7 @@ const fileFilter = (req, file, cb) => {
   if (
     file.mimetype === "image/png" ||
     file.mimetype === "image/jpg" ||
-    file.mimetype === "image/jpeg" ||
-    file.mimetype === "image/jfif"
+    file.mimetype === "image/jpeg"
   ) {
     cb(null, true);
   } else {
@@ -55,7 +54,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use('/images', express.static(path.join(__dirname, "images")));
 
 const MONGO_URI =
-  "mongodb+srv://ThanhPhong:23lOQy6qMnphokd2@cluster0.n29hy.mongodb.net/ASM2";
+  "mongodb+srv://phongdt:chat15031959@cluster0.n29hy.mongodb.net/Site_lotte";
 const store = new mongoDbSession({
   uri: MONGO_URI,
   collection: "sessions",
@@ -81,45 +80,25 @@ app.use((req, res, next) => {
 
 app.use(flash()); 
 
-// Routes
+// Routes User user in request
+
 const adminRoutes = require("./routes/admin");
 const authRoutes = require("./routes/auth");
-
-// Store staff in request
-app.use((req, res, next) => {
-  if (!req.session.staff) {
-    return next();
-  };
-  
-  Staff.findById(req.session.staff._id)
-    .then((staff) => {
-      if (!staff) {
-        next();
-      }
-
-      req.staff = staff;
-      const  manager = req.staff.manager;
-      next();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+const userRoutes = require("./routes/user");
 
 app.use(adminRoutes);
 app.use(authRoutes);
+app.use(userRoutes);
 
-app.get("/500", errorsController.get500);
-app.use("/", errorsController.get404);
+// app.get("/500", errorsController.get500);
+// app.use("/", errorsController.get404);
 
-app.use((error, req, res, next) => {
-  res.render("500", {
-    docTitle: "Error occurred",
-    path: null,
-    isAuthenticated: req.isLoggedIn,
-    isManager: false,
-  });
-});
+// app.use((error, req, res, next) => {
+//   res.render("500", {
+//     docTitle: "Error occurred",
+//     path: null,
+//   });
+// });
 
 mongoose
   .connect(
@@ -127,7 +106,7 @@ mongoose
   )
   .then((results) => {
     // console.log(results);
-    app.listen(process.env.PORT || 8000);
+    app.listen(process.env.PORT || 3000);//suitable for many environments to avoid error 500
   })
   .catch((err) => {
     console.log(err);

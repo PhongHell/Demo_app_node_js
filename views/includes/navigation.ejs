@@ -1,73 +1,65 @@
 <div class="backdrop"></div>
-<header class="main-header">
-    <button id="side-menu-toggle">Menu</button>
-    <nav class="main-header__nav">
-        <ul class="main-header__item-list">
-            <li class="main-header__item">
-                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Điểm danh</a>
-            </li>
-            <li class="main-header__item">
-                <a class="<%= path === '/staff' ? 'active' : '' %>" href="/staff">Thông tin cá nhân</a>
-            </li>
-            <li class="main-header__item">
-                <a class="<%= path === '/timesheet' ? 'active' : '' %>" href="/timesheet">Tra cứu giờ làm</a>
-            </li>
-            <li class="main-header__item">
-                <a class="<%= path === '/vaccine' ? 'active' : '' %>" href="/vaccine">Thông tin covid</a>
-            </li>
-            <% if (isManager) { %> 
-                <li class="main-header__item">
-                    <a class="<%= path === '/employeeVaccine' ? 'active' : '' %>" href="/employeeVaccine">Thông tin covid của nhân viên</a>
-                </li>    
-            <% } %>
-        </ul>
-        <ul class="main-header__item-list">
-            <% if (!isAuthenticated) { %>
-                <li class="main-header__item">
-                    <a class="<%= path === '/login' ? 'active' : '' %> btnLogin" href="/login">Login</a>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">LotteNows</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Trang Chủ</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                   Tra cứu XS
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="?option=xo-so-mien-bac">XS Miền Bắc</a></li>
+                  <li><a class="dropdown-item" href="?option=xo-so-mien-trung">XS Miền trung</a></li>
+                  <li><a class="dropdown-item" href="?option=xo-so-mien-name">XS Miền Nam</a></li>
+                  <!-- <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                </ul>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+              </li> -->
+            </ul>
+          </div>
+        </div>
+        <div class="form-login">
+          <% if(isLoggedIn) { %> 
+            <div class="avatar-login cursor-pointer">
+              <a href="/user/<%= userId %>">
+                <img src="https://i.pinimg.com/474x/3e/ee/0c/3eee0cf5ee9b86576f7720735828b5fd.jpg"
+                  alt="img"
+                  class="nav-ava"
+                  >
+              </a>
+            </div>
+            <div class="dropdown ">
+              <div class="btn-dropdown" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  User
+              </div>
+              <ul class="dropdown-menu" >
+                
+                <!-- <li><a class="style-link" href="/user/>">Hồ sơ</a></li> -->
+                <li>
+                  <form action="/signout" class="cursor-pointer" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <button type="submit">
+                        Đăng xuất
+                      </button>
+                  </form>
                 </li>
-            <% } else { %>
-                <li class="main-header__item">
-                    <form action="/logout" method="post">
-                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <button type="submit">Logout</button>
-                    </form>
-                </li>
-            <% } %>
-        </ul>
-    </nav>
+              </ul>
+            </div>
+          <% } else { %>
+            <a class="style-link" href="/signin">Đăng nhập</a> 
+          <% } %>
+        </div>
+      </nav>
+    
 </header>
-
-<nav class="mobile-nav">
-    <ul class="mobile-nav__item-list">
-        <li class="mobile-nav__item">
-            <a class="<%= path === '/' ? 'active' : '' %>" href="/">Điểm danh</a>
-        </li>
-        <li class="mobile-nav__item">
-            <a class="<%= path === '/staff' ? 'active' : '' %>" href="/staff">Thông tin cá nhân</a>
-        </li>
-        <li class="mobile-nav__item">
-            <a class="<%= path === '/timesheet' ? 'active' : '' %>" href="/timesheet">Tra cứu giờ làm</a>
-        </li>
-        <li class="mobile-nav__item">
-            <a class="<%= path === '/vaccine' ? 'active' : '' %>" href="/vaccine">Thông tin covid</a>
-        </li>
-        <% if (isManager) { %> 
-            <li class="mobile-nav__item">
-                <a class="<%= path === '/employeeVaccine' ? 'active' : '' %>" href="/employeeVaccine">Thông tin covid của nhân viên</a>
-            </li>    
-        <% } %>
-    </ul>
-    <% if (!isAuthenticated) { %>
-        <li class="mobile-nav__item">
-            <a class="<%= path === '/login' ? 'active' : '' %> btnLogin" href="/login" >Login</a>
-        </li>
-    <% } else { %>
-        <li class="mobile-nav__item">
-            <form action="/logout" method="post">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <button type="submit" class='btnLogin'>Logout</button>
-            </form>
-        </li>
-    <% } %>
-</nav>

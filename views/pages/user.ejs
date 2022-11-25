@@ -1,0 +1,120 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+<main>
+     <div class="col-12">
+         <div class="user-container bg-main-f5">
+              <div class="d-flex jus-between pl-2 pr-2 mb-5">
+                   <div>
+                        <h3><b>HỒ SƠ</b></h3>
+                   </div>
+                   <div>
+                        <button class="btn btn-primary">
+                         Lưu Thay Đổi
+                        </button>
+                   </div>
+              </div>
+             <div class="d-flex jus-between">
+                    <div class="col-3">
+                         <div class="mb-2"><b>Ảnh đại diện</b></div>
+                         <div>
+                              <img 
+                              src="https://i.pinimg.com/474x/3e/ee/0c/3eee0cf5ee9b86576f7720735828b5fd.jpg"
+                              alt="img_avatar"
+                              class="style-img col-12"
+                              >
+                         </div>
+                    </div>
+                    <div class="col-8">
+                              <div  class="m-b-fixed">
+                                   <b>ID </b><b class="red-col">*</b> : <%= user._id %>
+                              </div>
+                              <div class="m-b-fixed">
+                                   <div class="mb-2">Sử dụng URL Cho hình đại diện</div>
+                                   <input 
+                                        type="text" 
+                                        name="imgUrl"
+                                        class="input-url input-style-profile"
+                                   >
+                              </div>
+                              <div class="d-flex col-12 jus-between">
+                                   <div class="col-6">
+                                        <div class="font-weight mb-2"><b>Số điện thoại</b></div>
+                                        <input 
+                                             type="text" 
+                                             name="phoneNumber" 
+                                             value=""
+                                             class="col-11 p-1 input-style-profile"
+                                             >
+                                   </div>
+                                   <div class="col-6">
+                                        <div class="mb-2 "><b>Tên đăng nhập</b></div>
+                                        <input 
+                                             type="text" 
+                                             name="email" 
+                                             value="<%= user.email %>"
+                                             class="col-12 p-1 input-style-profile"
+                                             >
+                                   </div>
+                              </div>
+                    </div>
+             </div>
+         </div>
+         <div>
+          <div class="user-container bg-main-f5">
+               <form action="/update/user" method="POST">
+                    <div>
+                         <h3><b>Tài Khoản</b></h3>
+                    </div>
+                    <div class="col-8">
+                         <div class="mt-4">
+                              <div class="font-weight mb-2 "><b>Email</b><b class="red-col"> *</b></div>
+                              <input 
+                                   type="text" 
+                                   name="email" 
+                                   value="<%= user.email %>"
+                                   class="col-12 p-1 input-style-profile"
+                                   >
+                         </div>
+                         <div class="mt-4">
+                              <div class="mb-2 "><b>Mật Khẩu cũ</b><b class="red-col"> *</b></div>
+                              <input 
+                                   type="password" 
+                                   name="oldPassword" 
+                                   value=""
+                                   class="col-12 p-1 input-style-profile"
+                                   >
+                         </div>
+                         <div class="mt-4">
+                              <div class="mb-2 "><b>Mật khẩu mới</b><b class="red-col"> *</b></div>
+                              <input 
+                                   type="password" 
+                                   name="newPassword" 
+                                   value=""
+                                   class="col-12 p-1 input-style-profile"
+                                   >
+                         </div>
+                         <div class="mt-4">
+                              <div class="mb-2 "><b>Nhập lại mật khẩu mới</b><b class="red-col"> *</b></div>
+                              <input 
+                                   type="password" 
+                                   name="retypePassword" 
+                                   value=""
+                                   class="col-12 p-1 input-style-profile"
+                                   >
+                         </div>
+                   </div>
+                   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <div class="mt-4">
+                         <button class="btn btn-primary">
+                              Thay đổi mật khẩu
+                         </button>
+                    </div>
+               </form>
+          </div>
+         </div>
+     </div>
+</main>
+<%- include('../includes/end.ejs') %>

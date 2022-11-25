@@ -1,0 +1,38 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <div class="container d-flex jus-center mt-5">
+            <form action="/signin" method="POST" class="form-container body-container">
+                <div class="align-center">
+                    <h3>LotteNows Sign In</h3>
+                </div> 
+                <% if (errorMessage) { %> 
+                    <div class="align-center red-col"><%= errorMessage %></div>
+                <% } %>
+                <div class="m-t-fixed">
+                    <label class="mb-1" for="emailID">Email ID <b class="red-col">*</b></label>
+                    <input type="email" placeholder="Email" class="col-12 p-2 input-style" name="emailID"/>
+                </div>
+                <div class="m-t-fixed">
+                    <label class="mb-1" for="password">Password <b class="red-col">*</b></label>
+                    <input type="password" placeholder="Password" class="col-12 p-2 input-style" name="password"/>
+                </div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div class="align-center m-t-fixed">
+                    <button class="btn btn-primary elementc btn-style bg-main bo-none">Sign In</button>
+                </div>
+                <div class="align-center mt-2">
+                    <a href="/user/signup"
+                         class="style-link main-color"
+                    > Do you not have an account ? </a>
+                </div>
+            </form>
+         </div>
+    </main>
+<%- include('../includes/end.ejs') %>
