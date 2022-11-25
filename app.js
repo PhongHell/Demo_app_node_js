@@ -60,14 +60,14 @@ const store = new mongoDbSession({
   collection: "sessions",
 });
 
-app.use(
-  session({
-    secret: "whatever",
-    resave: false,
-    saveUninitialized: false,
-    store: store,
-  })
-);
+// app.use(
+//   session({
+//     secret: "whatever",
+//     resave: false,
+//     saveUninitialized: false,
+//     store: store,
+//   })
+// );
 
 app.use(csrf());
 
@@ -99,15 +99,16 @@ app.use(userRoutes);
 //     path: null,
 //   });
 // });
+app.listen(process.env.PORT || 8000)
 
-mongoose
-  .connect(
-    MONGO_URI
-  )
-  .then((results) => {
-    // console.log(results);
-    app.listen(process.env.PORT || 3000);//suitable for many environments to avoid error 500
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// mongoose
+//   .connect(
+//     MONGO_URI
+//   )
+//   .then((results) => {
+//     // console.log(results);
+//     app.listen(process.env.PORT || 3000);//suitable for many environments to avoid error 500
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
